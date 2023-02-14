@@ -1,10 +1,26 @@
-import "./styles.css";
+import React, { useState } from "react";
 
-export default function App() {
+import AddUser from "./components/Users/AddUser";
+import UsersList from "./components/Users/UsersList";
+
+function App() {
+  const [usersList, setUsersList] = useState([]);
+
+  const addUserHandler = (uName, uAge) => {
+    setUsersList((prevUsersList) => {
+      return [
+        ...prevUsersList,
+        { name: uName, age: uAge, id: Math.random().toString() },
+      ];
+    });
+  };
+
   return (
-    <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
-    </div>
+    <>
+      <AddUser onAddUser={addUserHandler} />
+      <UsersList users={usersList} />
+    </>
   );
 }
+
+export default App;
